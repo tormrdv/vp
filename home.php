@@ -12,6 +12,18 @@
 if($hournow >= 19 and $hournow <=22){
 	$partofday = "vaba aeg";
 }
+
+//vaatame semestri kulgemist 
+ $semesterstart = new DateTime("2020-8-31");
+ $semesterend = new DateTime("2020-12-13");
+// selgitame välja nende vahe ehk erinevuse
+ $semesterduration = $semesterstart -> diff($semesterend);
+ //leiame selle paevade arvuna 
+ $semesterdurationdays = $semesterduration -> format("%r%a");
+ 
+ //tänane paev
+ $today = new DateTime("now");
+ //if($fromsemesterstartdays < 0)(semesterpoleveelpealehakanud)
 ?>
 <!DOCTYPE html>
 <html lang="et">
