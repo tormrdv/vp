@@ -6,11 +6,17 @@
  if($hournow < 7){
 	 $partofday = "uneaeg";
  }
- if($hournow >= 8 and $hournow <= 18){
+ if($hournow >= 8 and $hournow <= 16){
 	 $partofday = "reservaeg";
  }
-if($hournow >= 19 and $hournow <=22){
+if($hournow >= 20 and $hournow <=22){
 	$partofday = "vaba aeg";
+}
+if($hournow >= 16 and $hournow <= 19){
+	$partofday = "trenni aeg";
+}
+if($hournow >= 19 and $hournow <= 20){
+	$partofday = "söögiaeg";
 }
 
 //vaatame semestri kulgemist 
@@ -20,10 +26,15 @@ if($hournow >= 19 and $hournow <=22){
  $semesterduration = $semesterstart -> diff($semesterend);
  //leiame selle paevade arvuna 
  $semesterdurationdays = $semesterduration -> format("%r%a");
- 
- //tänane paev
+ //kui palju semestrist on läbitud 
+ $today = new Datetime("now");
+ $semesterpassed = $semesterstart->diff($today)->format("%r%a");
+$semesterpercent = $semesterpassed * 100 / $semesterdurationdays;
+  //tänane paev
  $today = new DateTime("now");
+ $fromsemesterstartdays = $semesterstart->diff($today)->format("%r%a")
  //if($fromsemesterstartdays < 0)(semesterpoleveelpealehakanud)
+	 
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -39,6 +50,8 @@ if($hournow >= 19 and $hournow <=22){
   <h2>Hiljem näeb</h2>
   <p>Lehe avamise hetk: <?php echo $fulltimenow; ?>. </p>
   <p> <?php echo "Parajasti on ".$partofday .".";?></p>
-
+  <p><?php echo "Semestris on " .$semesterdurationdays . " päeva.";?></p>
+  <p><?php echo "Semester on kestnud " .$fromsemesterstartdays . " päeva.";?></p>
+  <p><?php echo "Semestrist on läbitud " .$semesterpercent . "%";?></p>
 </body>
 </html>
