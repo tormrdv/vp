@@ -6,7 +6,7 @@ function readfilms($choice)
 {
     $conn = new mysqli($GLOBALS["$serverhost"], $GLOBALS["$serverusername"], $GLOBALS["$serverpassword"], $GLOBALS["$database"]);
     //($serverhost, $serverusername, $serverpassword, $database);
-    //$stmt = $conn->prepare("SELECT pealkiri, aasta, kestus, zanr, tootja, lavastaja FROM film");
+    $stmt = $conn->prepare("SELECT pealkiri, aasta, kestus, zanr, tootja, lavastaja FROM film");
     if ($choice == 0) {
 
     $stmt = $conn->prepare("SELECT * FROM film");

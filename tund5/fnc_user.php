@@ -24,7 +24,7 @@
 
     function signin($email, $password){
         $result = null;
-        $conn = new mysqli($GLOBALS["$serverhost"], $GLOBALS["$serverusername"], $GLOBALS["$serverpassword"], $GLOBALS["$database"]);
+        $conn = new mysqli($GLOBALS["serverhost"], $GLOBALS["serverusername"], $GLOBALS["serverpassword"], $GLOBALS["database"]);
         $stmt = $conn->prepare("SELECT password FROM vpusers WHERE email = ?");
         echo $conn -> error;
         $stmt -> bind_param("s", email);

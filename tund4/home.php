@@ -57,7 +57,7 @@ if($hournow >= 19 and $hournow <= 20){
 //vaatame semestri kulgemist 
  $semesterstart = new DateTime("2020-8-31");
  $semesterend = new DateTime("2020-12-13");
-// selgitame välja nende vahe ehk erinevuse
+// selgitame välja nende vahe
  $semesterduration = $semesterstart -> diff($semesterend);
  //leiame selle paevade arvuna 
  $semesterdurationdays = $semesterduration -> format("%r%a");
@@ -81,7 +81,8 @@ $piccount = count($picfiles);
 //$i +=3
 for($i = 0;$i < $piccount; $i ++){
 	//<img src="../img/pildifail" alt="tekst"
-	$imghtml .='<img src="../pics/' .$picfiles[$i] .'"alt="Tallinna Ülikool">';
+	//$imghtml .='<img src="../pics/' .$picfiles[$i] .'"alt="Tallinna Ülikool">';
+    $imghtml = '<img src="../pics/' .$picfiles[mt_rand(0,($piccount - 1))] .'" alt="Tallinna Ülikool">';
 }
 require("header.php");
 ?>
@@ -97,14 +98,17 @@ require("header.php");
   <p><?php echo "Semestrist on läbitud " .$semesterpercent . "%";?></p>
   <h2>Hiljem näeb</h2>
   <hr>
+  <p>Teised huvitavad lehed :</p>
+<ul>
+    <li><a href="addideas.php">Pane kirja oma mõte</a></li>
+    <li><a href="listideas.php">Mõtete vaatamine</a></li>
+    <li><a href="listfilms.php">Filmide nimekirja vaatamine</a></li>
+    <li><a href="addfilms.php">Filmiinfo lisamine</a></li>
+    <li><a href="userinput.php">Kasutaja tegemine</a> </li>
+</ul>
+  <hr>
   <?php echo $imghtml;?>
   <hr>
-  <form method="POST">
-  <label>Kirjutage oma esimene pähe tulev mõte!</label>
-  <input type ="text" name="ideainput" placeholder="mõttekoht" >
-  <input type="submit" name="ideasubmit" value ="Saada mõte teele">
-  </form>
-  <hr>
-  <?php echo $ideahtml; ?>
+
   </body>
 </html>

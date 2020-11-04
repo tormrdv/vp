@@ -1,7 +1,7 @@
 <?php
     require("../../../config.php");
-    $database = "if20_torm_rdv_20"
-    require("fnc_film.php")
+    $database = "if20_torm_rdv_20";
+    require("fnc_film.php");
     $username = "Torm Erik Raudvee";
   require("header.php");
 ?>
@@ -14,7 +14,7 @@
     <li><a href="home.php">Avalehele</a></li>
 </ul>
 <?php //echo $filmhtml;
-    echo readfilms
+    echo readfilms(0);
 ?>
 </body>
 </html>

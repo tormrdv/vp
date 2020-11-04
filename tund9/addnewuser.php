@@ -46,31 +46,32 @@ if(isset($_POST["submituserdata"])){
     } else {
         $gendererror = "Palun märgi sugu!";
     }
+
     if(isset($_POST["birthdayinput"])){
         $birthday = intval($_POST["birthdayinput"]);
     } else {
-            $birthdayerror = "Palun märgi sünnikuupäev";
+        $birthdayerror = "Palun vali sünnikuupäev!";
     }
+
     if(isset($_POST["birthmonthinput"])){
         $birthmonth = intval($_POST["birthmonthinput"]);
     } else {
-        $birthmontherror = "Palun märgi sünnikuu";
+        $birthmontherror = "Palun vali sünnikuu!";
     }
+
     if(isset($_POST["birthyearinput"])){
         $birthyear = intval($_POST["birthyearinput"]);
     } else {
-        $birthyearerror = "Palun märgi sünniaasta";
+        $birthyearerror = "Palun vali sünniaasta!";
     }
 
     if(empty($birthdayerror) and empty($birthmontherror) and empty($birthyearerror)){
-        if(checkdate($birthmonth, $birthday, $birthyear)) {
+        if(checkdate($birthmonth, $birthday, $birthyear)){
             $tempdate = new DateTime($birthyear ."-" .$birthmonth ."-" .$birthday);
-            $birthdate = $tempdate -> format("Y-m-d");
+            $birthdate = $tempdate->format("Y-m-d");
         } else {
-            $birthdateerror = "Valitud kuupäev on ebareaalne";
+            $birthdateerror = "Valitud kuupäev on ebareaalne!";
         }
-
-
     }
 
     if (!empty($_POST["emailinput"])){
@@ -95,30 +96,32 @@ if(isset($_POST["submituserdata"])){
         }
     }
 
-    if(empty($firstnameerror) and empty($lastnameerror) and empty($gendererror ) and empty($emailerror) and empty($passworderror) and empty($confirmpassworderror) and empty($birthdayerror) and empty($birthmontherror) and empty($birthyearerror) and empty($birthdateerror)){
+    if(empty($firstnameerror) and empty($lastnameerror) and empty($gendererror ) and empty($birthdayerror) and empty($birthmontherror) and empty($birthyearerror) and empty($birthdateerror) and empty($emailerror) and empty($passworderror) and empty($confirmpassworderror)){
         $result = signup($firstname, $lastname, $email, $gender, $birthdate, $_POST["passwordinput"]);
-        $notice = "Kõik korras!";
-
+        //$notice = "Kõik korras!";
         if($result == "ok"){
             $notice = "Kasutaja on edukalt loodud!";
             $firstname= "";
             $lastname = "";
             $gender = "";
+            $birthday = null;
+            $birthmonth = null;
+            $birthyear = null;
+            $birthdate = null;
             $email = "";
         } else {
-            $notice = "Kahjuks tekkis tehnililne viga";
+            $notice = "Kahjuks tekkis tehniline viga: " .$result;
         }
     }
 
 }
 
 
-//$username = "Torm Erik Raudvee";
+$username = "Andrus Rinde";
 
 require("header.php");
 ?>
 
-<img src="../img/vp_banner.png" alt="Veebiprogrammeerimise kursuse bänner">
 <h1>Uue kasutajakonto loomine</h1>
 <p>See veebileht on loodud õppetöö käigus ning ei sisalda mingit tõsiseltvõetavat sisu!</p>
 <p>Leht on loodud veebiprogrammeerimise kursusel <a href="http://www.tlu.ee">Tallinna Ülikooli</a> Digitehnoloogiate instituudis.</p>
@@ -142,6 +145,7 @@ require("header.php");
     <span><?php echo "&nbsp; &nbsp; &nbsp;" .$gendererror; ?></span>
     <br>
     <br>
+
     <label for="birthdayinput">Sünnipäev: </label>
     <?php
     echo '<select name="birthdayinput" id="birthdayinput">' ."\n";
@@ -172,10 +176,10 @@ require("header.php");
     <?php
     echo '<select name="birthyearinput" id="birthyearinput">' ."\n";
     echo '<option value="" selected disabled>aasta</option>' ."\n";
-    for ($i = date("Y") - 15; $i >= date("Y") - 110; $i --){
+    for ($i = date("Y") - 10; $i >= date("Y") - 110; $i --){
         echo '<option value="' .$i .'"';
         if ($i == $birthyear){
-            echo " selected";
+            echo " selected ";
         }
         echo ">" .$i ."</option> \n";
     }
@@ -183,8 +187,8 @@ require("header.php");
     ?>
     <br>
     <span><?php echo $birthdateerror ." " .$birthdayerror ." " .$birthmontherror ." " .$birthyearerror; ?></span>
-<br>
-<br>
+    <br>
+    <br>
 
     <label for="emailinput">E-mail (kasutajatunnus):</label><br>
     <input type="email" name="emailinput" id="emailinput" value="<?php echo $email; ?>"><span><?php echo $emailerror; ?></span>
